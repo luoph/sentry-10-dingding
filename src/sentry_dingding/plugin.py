@@ -53,14 +53,16 @@ class DingDingPlugin(NotificationPlugin):
         access_token = self.get_option('access_token', group.project)
         send_url = DingTalk_API.format(token=access_token)
         title = u'【%s】的项目异常' % event.project.slug
-
+        message = event.title or event.message
+        stacktrace = event.stacktrace or u'无堆栈信息'
         data = {
             "msgtype": "markdown",
             "markdown": {
                 "title": title,
-                "text": u"#### {title} \n\n > {message} \n\n [详细信息]({url})".format(
+                "text": u"#### {title} \n\n > {message} \n\n > {stacktrace} \n\n [详细信息]({url})".format(
                     title=title,
-                    message=event.title or event.message,
+                    message=message,
+                    stacktrace=stacktrace,
                     url=u"{}events/{}/".format(group.get_absolute_url(), event.event_id),
                 )
             }
