@@ -7,9 +7,9 @@ with open("README.md", "r") as fh:
 setup(
     name="sentry-10-dingding",
     version='1.0.0',
-    author='season',
-    author_email='season2991@gmail.com',
-    url='https://github.com/cench/sentry-10-dingding',
+    author='luoph',
+    author_email='luopeihuan@gmail.com',
+    url='https://github.com/luoph/sentry-10-dingding.git',
     description='A Sentry extension which send errors stats to DingDing',
     long_description=long_description,
     long_description_content_type="text/markdown",

@@ -54,7 +54,11 @@ class DingDingPlugin(NotificationPlugin):
         send_url = DingTalk_API.format(token=access_token)
         title = u'【%s】的项目异常' % event.project.slug
         message = event.title or event.message
-        stacktrace = json.dumps(event.__dict__)
+        try:
+            stacktrace = json.dumps(event.stacktrace.__dict__)
+        except AttributeError as error:
+            stacktrace = u'暂无堆栈信息'
+            pass
 
         data = {
             "msgtype": "markdown",
