@@ -55,19 +55,19 @@ class DingDingPlugin(NotificationPlugin):
         title = u'【%s】的项目异常' % event.project.slug
         message = event.title or event.message
         try:
-            stacktrace = json.dumps(event.stacktrace.__dict__)
+            data = json.dumps(event.data)
         except AttributeError as error:
-            stacktrace = u'暂无堆栈信息'
+            data = u'暂无堆栈信息'
             pass
 
         data = {
             "msgtype": "markdown",
             "markdown": {
                 "title": title,
-                "text": u"#### {title} \n\n > {message} \n\n > {stacktrace} \n\n [详细信息]({url})".format(
+                "text": u"#### {title} \n\n > {message} \n\n > {data} \n\n [详细信息]({url})".format(
                     title=title,
                     message=message,
-                    stacktrace=stacktrace,
+                    data=data,
                     url=u"{}events/{}/".format(group.get_absolute_url(), event.event_id),
                 )
             }
