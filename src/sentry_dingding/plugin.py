@@ -53,12 +53,7 @@ class DingDingPlugin(NotificationPlugin):
         access_token = self.get_option('access_token', group.project)
         send_url = DingTalk_API.format(token=access_token)
         title = u'【%s】的项目异常' % event.project.slug
-        message = event.title or event.message
-        try:
-            data = json.dumps(event.data)
-        except AttributeError as error:
-            data = u'暂无堆栈信息'
-            pass
+        event_name = event.__class__.__name__
 
         data = {
             "msgtype": "markdown",
@@ -67,7 +62,7 @@ class DingDingPlugin(NotificationPlugin):
                 "text": u"#### {title} \n\n > {message} \n\n > {data} \n\n [详细信息]({url})".format(
                     title=title,
                     message=message,
-                    data=data,
+                    data=event_name,
                     url=u"{}events/{}/".format(group.get_absolute_url(), event.event_id),
                 )
             }
