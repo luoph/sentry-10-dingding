@@ -54,7 +54,8 @@ class DingDingPlugin(NotificationPlugin):
         send_url = DingTalk_API.format(token=access_token)
         title = u'【%s】的项目异常' % event.project.slug
         message = event.title or event.message
-        stacktrace = event.stacktrace or u'无堆栈信息'
+        stacktrace = json.dumps(event.__dict__)
+
         data = {
             "msgtype": "markdown",
             "markdown": {
